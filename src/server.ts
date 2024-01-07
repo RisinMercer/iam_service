@@ -1,8 +1,7 @@
 import * as cors from 'cors';
 import * as express from 'express';
 import { errorHandler } from './handlers/error';
-import { indexRouter } from './routes';
-import { initializeServer } from './utils';
+import { buildRoutes, initializeServer } from './utils';
 
 const app: express.Express = express();
 const corsOptions: cors.CorsOptions = {
@@ -14,13 +13,10 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cors(corsOptions));
 app.use(errorHandler);
 
-/** Add all routes under /iam */
-app.use('/iam', indexRouter);
+/** Building all the routes */
+buildRoutes(app);
 
-app.get('/*', (req: express.Request, res: express.Response) => {
-  res.redirect('/iam/ready');
-});
-
+/** Initializing Server with MongoDB */
 initializeServer(app);
 
 module.exports = app;

@@ -1,6 +1,7 @@
-import { Express, Response } from 'express';
+import { Express, Request, Response } from 'express';
 import mongoose from 'mongoose';
 import { IAM_SERVICE_PORT, MONGODB_URL } from '../config';
+import { ReadyRouter } from '../routes';
 
 export class ResponseObject {
   private response: Response;
@@ -32,4 +33,14 @@ export const initializeServer = (app: Express): void => {
       console.error(error.message);
       process.exit(1);
     });
+};
+
+export const buildRoutes = (app: Express): void => {
+  /** Custom Routes */
+  app.use('/iam', ReadyRouter);
+
+  /** Default Route */
+  app.get('/*', (req: Request, res: Response) => {
+    res.redirect('/iam/ready');
+  });
 };
