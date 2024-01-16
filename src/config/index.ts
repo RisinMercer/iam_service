@@ -6,4 +6,4 @@ if (process.env.NODE_ENV !== 'production') {
   config();
 }
 
-export const { IAM_SERVICE_PORT, MONGODB_URL } = process.env;
+export const { IAM_SERVICE_PORT, MONGODB_URL, RSA_SECRET } = process.env;

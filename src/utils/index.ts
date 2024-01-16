@@ -19,6 +19,14 @@ export class ResponseObject {
   };
 }
 
+export const isJsonString = (str: string | null | undefined): boolean => {
+  try {
+    return !!(JSON.parse(str) && str);
+  } catch (error) {
+    return false;
+  }
+};
+
 export const initializeServer = (app: Express): void => {
   mongoose.set('debug', true);
   mongoose.Promise = Promise;
