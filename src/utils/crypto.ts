@@ -4,10 +4,11 @@ import {
   createCipheriv,
   createDecipheriv,
   createHash,
+  pbkdf2Sync,
   randomBytes,
 } from 'crypto';
-import { RSA_SECRET } from '../config';
 import { isJsonString } from '.';
+import { RSA_SECRET } from '../config';
 
 export const generateCipherDecipher = (): {
   cipher: CipherGCM;
@@ -50,3 +51,15 @@ export const closeCipherDecipher = (
   cipher.final();
   decipher.final();
 };
+
+export const generateSalt = (bytes: 8 | 16 | 32, encoding: BufferEncoding) =>
+  randomBytes(bytes).toString(encoding);
+
+export const generateHash = (
+  value: string,
+  salt: string,
+  iterations: number,
+  length: number,
+  digest: string,
+  encoding: BufferEncoding,
+) => pbkdf2Sync(value, salt, iterations, length, digest).toString(encoding);
