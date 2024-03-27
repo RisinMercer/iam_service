@@ -1,16 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.readyService = void 0;
-const utils_1 = require("../utils");
-const readyService = (req, res, next) => {
-    try {
-        return new utils_1.ResponseObject(res, 200, {
-            message: 'Hey there!! You are using IAM Service',
-        }).build();
-    }
-    catch (error) {
-        return next(error);
-    }
-};
-exports.readyService = readyService;
+exports.AuthRouter = exports.ReadyService = void 0;
+var ready_1 = require("./ready");
+Object.defineProperty(exports, "ReadyService", { enumerable: true, get: function () { return ready_1.default; } });
+var auth_1 = require("./auth");
+Object.defineProperty(exports, "AuthRouter", { enumerable: true, get: function () { return auth_1.default; } });
 //# sourceMappingURL=index.js.map
